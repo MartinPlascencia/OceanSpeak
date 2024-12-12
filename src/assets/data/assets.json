@@ -1,0 +1,54 @@
+{
+    "preload": {
+        "assets": {
+            "atlases": [
+                {
+                    "name": "loadingAtlas",
+                    "json": "assets/images/preload/atlas.json",
+                    "image": "assets/images/preload/atlas.png"
+                }
+            ],
+            "sounds_list": ["load_button"],
+            "sound_format": ".mp3",
+            "sounds_location": "assets/sounds/",
+            "fonts": [
+                {
+                    "name": "futura_bold",
+                    "image": "assets/images/game/font/futuraPTBold.png",
+                    "font": "assets/images/game/font/futuraPTBold.fnt"
+                }
+            ]
+        }
+    },
+    "game": {
+        "assets": {
+            "plugins": [],
+            "images": [],
+            "atlases": [
+                {
+                    "name": "game_atlas",
+                    "json": "assets/images/game/game.json",
+                    "image": "assets/images/game/game.png"
+                },
+                {
+                    "name": "vfx_atlas",
+                    "json": "assets/images/game/vfx.json",
+                    "image": "assets/images/game/vfx.png"
+                }
+            ],
+            "sounds_list": ["bucket", "click2", "Game_Start", "lose", "pop", "pop_magic", "drag", "winwin", "beep", "quick-whoosh",
+                "cashSound", "rainbow"],
+            "sound_format": ".mp3",
+            "sounds_location": "assets/sounds/",
+            "fonts": [
+                {
+                    "name": "grobold",
+                    "image": "assets/images/game/font/grobold.png",
+                    "font": "assets/images/game/font/grobold.fnt"
+                }
+            ],
+            "spritesheets": [],
+            "spines": []
+        }
+    }
+}

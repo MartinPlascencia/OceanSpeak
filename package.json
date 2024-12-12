@@ -1,0 +1,38 @@
+{
+  "name": "ocean_speak",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/js/main.ts",
+  "scripts": {
+    "test": "jest",
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
+  "author": "Martin Plascencia",
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "babel-loader": "^9.1.2",
+    "copy-webpack-plugin": "^11.0.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^29.7.0",
+    "phaser": "^3.86.0",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.77.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.2",
+    "ws": "^8.18.0"
+  },
+  "dependencies": {
+    "isomorphic-ws": "^5.0.0",
+    "npm-check-unused": "^6.0.0",
+    "phaser3-rex-plugins": "^1.80.10"
+  }
+}

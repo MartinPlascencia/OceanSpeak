@@ -1,0 +1,314 @@
+{
+	"textures": [
+		{
+			"image": "vfx.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1000,
+				"h": 677
+			},
+			"scale": 0.5,
+			"frames": [
+				{
+					"filename": "explosion_05",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 345,
+						"h": 350
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 0,
+						"w": 332,
+						"h": 341
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 332,
+						"h": 341
+					}
+				},
+				{
+					"filename": "explosion_04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 345,
+						"h": 350
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 2,
+						"w": 332,
+						"h": 338
+					},
+					"frame": {
+						"x": 335,
+						"y": 1,
+						"w": 332,
+						"h": 338
+					}
+				},
+				{
+					"filename": "explosion_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 345,
+						"h": 350
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 5,
+						"w": 331,
+						"h": 335
+					},
+					"frame": {
+						"x": 335,
+						"y": 341,
+						"w": 331,
+						"h": 335
+					}
+				},
+				{
+					"filename": "explosion_06",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 345,
+						"h": 350
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 5,
+						"w": 331,
+						"h": 335
+					},
+					"frame": {
+						"x": 668,
+						"y": 341,
+						"w": 331,
+						"h": 335
+					}
+				},
+				{
+					"filename": "explosion_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 345,
+						"h": 350
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 13,
+						"w": 328,
+						"h": 326
+					},
+					"frame": {
+						"x": 1,
+						"y": 344,
+						"w": 328,
+						"h": 326
+					}
+				},
+				{
+					"filename": "explosion_00",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 345,
+						"h": 350
+					},
+					"spriteSourceSize": {
+						"x": 94,
+						"y": 86,
+						"w": 164,
+						"h": 164
+					},
+					"frame": {
+						"x": 669,
+						"y": 1,
+						"w": 164,
+						"h": 164
+					}
+				},
+				{
+					"filename": "explosion_08",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 345,
+						"h": 350
+					},
+					"spriteSourceSize": {
+						"x": 94,
+						"y": 86,
+						"w": 164,
+						"h": 164
+					},
+					"frame": {
+						"x": 669,
+						"y": 167,
+						"w": 164,
+						"h": 164
+					}
+				},
+				{
+					"filename": "explosion_07",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 345,
+						"h": 350
+					},
+					"spriteSourceSize": {
+						"x": 96,
+						"y": 88,
+						"w": 160,
+						"h": 159
+					},
+					"frame": {
+						"x": 835,
+						"y": 1,
+						"w": 160,
+						"h": 159
+					}
+				},
+				{
+					"filename": "explosion_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 345,
+						"h": 350
+					},
+					"spriteSourceSize": {
+						"x": 152,
+						"y": 143,
+						"w": 58,
+						"h": 62
+					},
+					"frame": {
+						"x": 835,
+						"y": 162,
+						"w": 58,
+						"h": 62
+					}
+				},
+				{
+					"filename": "star",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 27,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 2,
+						"w": 24,
+						"h": 23
+					},
+					"frame": {
+						"x": 835,
+						"y": 226,
+						"w": 24,
+						"h": 23
+					}
+				},
+				{
+					"filename": "ice_particle",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 6,
+						"w": 12,
+						"h": 20
+					},
+					"frame": {
+						"x": 861,
+						"y": 226,
+						"w": 12,
+						"h": 20
+					}
+				},
+				{
+					"filename": "wind_particle",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 6,
+						"w": 12,
+						"h": 20
+					},
+					"frame": {
+						"x": 875,
+						"y": 226,
+						"w": 12,
+						"h": 20
+					}
+				},
+				{
+					"filename": "fire_particle",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 6,
+						"w": 11,
+						"h": 19
+					},
+					"frame": {
+						"x": 889,
+						"y": 226,
+						"w": 11,
+						"h": 19
+					}
+				},
+				{
+					"filename": "water_particle",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 4,
+						"w": 8,
+						"h": 22
+					},
+					"frame": {
+						"x": 895,
+						"y": 162,
+						"w": 8,
+						"h": 22
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:7974752a0cb6cb68e7beaed8355af92c:3291d44cd00c4155789d385e4821db26:e8a10d8fa8e9d60843a1977c276b63e3$"
+	}
+}

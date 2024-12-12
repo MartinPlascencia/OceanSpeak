@@ -1,0 +1,440 @@
+{
+	"textures": [
+		{
+			"image": "game.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 250,
+				"h": 967
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "sand_00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 128
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 128,
+						"h": 128
+					}
+				},
+				{
+					"filename": "brown_fish",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 8,
+						"w": 116,
+						"h": 113
+					},
+					"frame": {
+						"x": 131,
+						"y": 1,
+						"w": 116,
+						"h": 113
+					}
+				},
+				{
+					"filename": "plant_00",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 9,
+						"w": 99,
+						"h": 119
+					},
+					"frame": {
+						"x": 131,
+						"y": 116,
+						"w": 99,
+						"h": 119
+					}
+				},
+				{
+					"filename": "sand_01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 128
+					},
+					"frame": {
+						"x": 1,
+						"y": 131,
+						"w": 128,
+						"h": 128
+					}
+				},
+				{
+					"filename": "plant_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 9,
+						"w": 99,
+						"h": 119
+					},
+					"frame": {
+						"x": 131,
+						"y": 237,
+						"w": 99,
+						"h": 119
+					}
+				},
+				{
+					"filename": "sand_02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 128
+					},
+					"frame": {
+						"x": 1,
+						"y": 261,
+						"w": 128,
+						"h": 128
+					}
+				},
+				{
+					"filename": "green_fish",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 23,
+						"w": 118,
+						"h": 86
+					},
+					"frame": {
+						"x": 131,
+						"y": 358,
+						"w": 118,
+						"h": 86
+					}
+				},
+				{
+					"filename": "sand_tile_00",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 128
+					},
+					"frame": {
+						"x": 1,
+						"y": 391,
+						"w": 128,
+						"h": 128
+					}
+				},
+				{
+					"filename": "orange_fish",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 30,
+						"w": 118,
+						"h": 68
+					},
+					"frame": {
+						"x": 131,
+						"y": 446,
+						"w": 118,
+						"h": 68
+					}
+				},
+				{
+					"filename": "rock_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 59,
+						"w": 112,
+						"h": 69
+					},
+					"frame": {
+						"x": 131,
+						"y": 516,
+						"w": 112,
+						"h": 69
+					}
+				},
+				{
+					"filename": "sand_tile_01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 128
+					},
+					"frame": {
+						"x": 1,
+						"y": 521,
+						"w": 128,
+						"h": 128
+					}
+				},
+				{
+					"filename": "rock_00",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 63,
+						"w": 116,
+						"h": 65
+					},
+					"frame": {
+						"x": 131,
+						"y": 587,
+						"w": 116,
+						"h": 65
+					}
+				},
+				{
+					"filename": "sand_tile_02",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 128
+					},
+					"frame": {
+						"x": 1,
+						"y": 651,
+						"w": 128,
+						"h": 128
+					}
+				},
+				{
+					"filename": "plant_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 25,
+						"y": 39,
+						"w": 80,
+						"h": 89
+					},
+					"frame": {
+						"x": 131,
+						"y": 654,
+						"w": 80,
+						"h": 89
+					}
+				},
+				{
+					"filename": "plant_05",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 18,
+						"y": 52,
+						"w": 92,
+						"h": 76
+					},
+					"frame": {
+						"x": 131,
+						"y": 745,
+						"w": 92,
+						"h": 76
+					}
+				},
+				{
+					"filename": "red_fish",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 15,
+						"w": 122,
+						"h": 98
+					},
+					"frame": {
+						"x": 1,
+						"y": 781,
+						"w": 122,
+						"h": 98
+					}
+				},
+				{
+					"filename": "blue_fish",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 27,
+						"w": 124,
+						"h": 74
+					},
+					"frame": {
+						"x": 125,
+						"y": 823,
+						"w": 124,
+						"h": 74
+					}
+				},
+				{
+					"filename": "plant_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 34,
+						"y": 43,
+						"w": 63,
+						"h": 85
+					},
+					"frame": {
+						"x": 1,
+						"y": 881,
+						"w": 63,
+						"h": 85
+					}
+				},
+				{
+					"filename": "purple_fish",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 36,
+						"w": 88,
+						"h": 56
+					},
+					"frame": {
+						"x": 66,
+						"y": 899,
+						"w": 88,
+						"h": 56
+					}
+				},
+				{
+					"filename": "plant_04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 30,
+						"y": 65,
+						"w": 68,
+						"h": 63
+					},
+					"frame": {
+						"x": 156,
+						"y": 899,
+						"w": 68,
+						"h": 63
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:23556f6095e7b71f3bf9c29a82c78be4:085f3054e1b3f0c825b025dd70ee37a5:fc2835210f98bae8e8c1b7f0a84c9321$"
+	}
+}

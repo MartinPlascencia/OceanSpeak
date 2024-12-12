@@ -1,0 +1,5 @@
+{
+    "orientation": "landscape",
+    "skip_loading": true,
+    "scene_to_start": "MainScene"
+}
