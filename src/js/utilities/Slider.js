@@ -48,13 +48,15 @@ export default class Slider extends Phaser.GameObjects.Container {
             }
             dragButton.x = posX;
         };
+
+        let sliderStarted = false;
         sliderLine.on('pointerdown', (pointer) => {
             initialPositionX = sliderLine.getWorldTransformMatrix().tx
             this.isDragging = true;
             dragButton.setScale(1.2);
             positionDragButton(pointer);
             sound.play('drag');
-
+            sliderStarted = true;
         });
 
         const sendValue = () =>{
@@ -66,7 +68,10 @@ export default class Slider extends Phaser.GameObjects.Container {
         const stopDrag = () =>{
             this.isDragging = false;
             dragButton.setScale(1);
-            sound.play('pop');
+            if (sliderStarted) {
+                sound.play('pop');
+            }
+            sliderStarted = false;
         }
 
         sliderLine.on('pointerup', stopDrag);

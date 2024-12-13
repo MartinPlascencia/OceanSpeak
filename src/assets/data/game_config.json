@@ -1,6 +1,6 @@
 {
     "orientation": "landscape",
-    "skip_loading": true,
+    "skip_loading": false,
     "scene_to_start": "MainScene", 
     "max_fishes_number": 30,
     "min_fishes_number": 8,

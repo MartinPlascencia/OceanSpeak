@@ -46,11 +46,18 @@ export default class PreloadScene extends Phaser.Scene {
         this.createEffects();
 
         this.createMenu();
+
+        this.animateScene();
+    }
+
+    private animateScene() {   
+        this.effects.showFade(350, () => {
+            this.setupMenu.showMenu();
+        });
     }
 
     private createMenu() {
         this.setupMenu = new SetupMenu(this, this.screen, this.setGame.bind(this), gameConfig);
-        this.setupMenu.showMenu();
     }
 
     setGame(numberOfFishes: number, speed: number) {
@@ -81,8 +88,10 @@ export default class PreloadScene extends Phaser.Scene {
                 return;
             }
             sound.play('water_attack', {volume: 0.2});
-            this.effects.showParticles('vfx_atlas', 'drop', null, 5, {x: pointer.x, y: pointer.y});
+            this.effects.playWaterEffect(pointer.x, pointer.y, 3, 300);
         });
+
+        this.effects.createGroundParticles('bubbles', 'vfx_atlas', 'bubble', -100, true, 400 );
     }
 
     private createFishes(numberOfFishes: number = 10, speed: number = 5) {

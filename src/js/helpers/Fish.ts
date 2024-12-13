@@ -23,8 +23,8 @@ export default class Fish extends Phaser.GameObjects.Image {
         this._turnSpeed = Math.random() - 0.8;
 
         this._padding = this.displayWidth;
-        this._rightLimit = rightLimit + this._padding * 1.5;
-        this._bottomLimit = bottomLimit + this._padding * 1.5;
+        this._rightLimit = rightLimit + this._padding * 2;
+        this._bottomLimit = bottomLimit + this._padding * 2;
 
     }
 

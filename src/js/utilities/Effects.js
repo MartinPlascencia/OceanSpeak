@@ -17,18 +17,18 @@ export default class Effects{
         this.textParticles = [];
     }
 
-    createRainParticles(name, atlasName, keys, gravityY, keepPlaying = false, particlesNumber = 150){  
+    createGroundParticles(name, atlasName, keys, gravityY, keepPlaying = false, particlesNumber = 150){  
         let particles = this.scene.add.particles(0, 0, atlasName, {
 			frame:keys,
-            x: { random: [ 0,screen.width ] },
-			y:-200,
-            lifespan: 3500,
+            x: { random: [ 0,screen.width * 2] },
+			y:screen.width + 300,
+            lifespan: 5000,
             gravityY: gravityY,
             frequency: particlesNumber,
             scale: { min: 0.3, max: 0.8 },
 			angle: { min: 0, max: 360 },
 			rotate:{start:0,end:450},
-			accelerationY:{min:100,max:300},
+			accelerationY:{min:-100,max:-300},
 			speedX:{min:-100,max:100},
         });
         particles.tag = name;
@@ -64,12 +64,12 @@ export default class Effects{
     }
 
     createFade(){
-        this.whiteFade = this.scene.add.rectangle(screen.centerX,screen.centerY,screen.width,screen.height,0xffffff).setAlpha(0);
-        this.whiteFade.setBlendMode(Phaser.BlendModes.ADD);
-        this.whiteFade.setScrollFactor(0,0);
+        this.whiteFade = this.scene.add.rectangle(screen.centerX,screen.centerY,screen.width * 10,screen.height * 10,0xffffff).setAlpha(0);
+        //this.whiteFade.setBlendMode(Phaser.BlendModes.ADD);
+        //this.whiteFade.setScrollFactor(0,0);
     }
 
-    showFade(duration = 350, callback = null){
+    showFade(duration = 350, callback){
         this.whiteFade.alpha = 1;
         this.tweens.add({
             targets:this.whiteFade, 
@@ -79,7 +79,7 @@ export default class Effects{
         })
     }
 
-    fadeOut(duration = 350, callback = null){
+    fadeOut(duration = 350, callback){
         this.whiteFade.alpha = 0;
         this.tweens.add({
             targets:this.whiteFade, 
@@ -129,11 +129,28 @@ export default class Effects{
 		}
     }
 
-    showSpriteParticles(animName, obj, scaleToUse = 1, frames = 12, offsetPosition = {x:0, y:0}, keepAnimation){
-
+    checkSpriteParticlesGroup(){
         if (!this.spriteParticlesGroup) {
             this.addSpriteParticles();
-		}
+        }
+    }
+
+    getSprite(key, atlasName){
+        this.checkSpriteParticlesGroup();
+        let sprite;
+        if (atlasName){
+            sprite = this.spriteParticlesGroup.get(0,0,atlasName, key);
+        } else {
+            sprite = this.spriteParticlesGroup.get(0,0,key);
+        }
+        sprite.setActive(true);
+        sprite.setVisible(true);
+        return sprite;
+    }
+
+    showSpriteParticles(animName, obj, scaleToUse = 1, frames = 12, offsetPosition = {x:0, y:0}, keepAnimation){
+
+        this.checkSpriteParticlesGroup();
         var anim = this.spriteParticlesGroup.get(0,0,animName);
         if (!anim) {
             console.log("sprite sheet particle " + animName + " has not been created")
@@ -141,6 +158,9 @@ export default class Effects{
         }
         if (obj) {
             this.positionObject(anim, obj, offsetPosition);
+        } else {
+            anim.x = offsetPosition.x;
+            anim.y = offsetPosition.y;
         }
         anim.setActive(true);
         anim.setVisible(true);
@@ -168,6 +188,28 @@ export default class Effects{
         positionToEmit.x = worldObj.tx + offset.x
         positionToEmit.y = worldObj.ty + offset.y
         return positionToEmit
+    }
+
+    playWaterEffect(posX, posY, wavesNumber = 5, wavesDelay = 200){
+        this.showParticles('vfx_atlas', 'drop', null, 5, {x: posX, y: posY});
+
+        let delay = 0;
+        for ( let i = 0; i < wavesNumber; i++) {
+            this.scene.time.delayedCall(delay, () => {
+                const waterRing = this.getSprite('water_ring', 'vfx_atlas');
+                waterRing.setPosition(posX, posY);
+                this.tweens.add({
+                    targets: waterRing,
+                    scale: {from:0, to:2},
+                    alpha: {from:1, to:0},
+                    duration: 1000,
+                    onComplete: () => {
+                        this.killSprite(waterRing);
+                    }
+                })
+            });
+            delay += wavesDelay;
+        }
     }
 
 	killSprite(sprite){

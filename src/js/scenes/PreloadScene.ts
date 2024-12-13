@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import GameUtils from '../libs/GameUtils.js';
 import SceneLoader from '../libs/Sceneloader.js';
 import Screen from '../utilities/Screen.js';
+import Effects from '../utilities/Effects.js';
 
 import assetsData from '../../assets/data/assets.json';
 import gameConfig from '../../assets/data/game_config.json';
@@ -15,6 +16,7 @@ export default class PreloadScene extends Phaser.Scene {
     private maskUsed!: Phaser.GameObjects.Graphics & { initialY?: number, endY?: number };
     private startButton!: Phaser.GameObjects.Container;
     private screen!: Screen;
+    private effects!: Effects;
 
     constructor() {
         super("PreloadScene");
@@ -30,11 +32,17 @@ export default class PreloadScene extends Phaser.Scene {
         }
     };
 
+    private goToGame(){
+        sound.decode(assetsData.game.assets.sounds_list, this);
+        this.effects.fadeOut(300, () => {
+            this.scene.start(gameConfig.scene_to_start);
+        });
+    }
+
     private onCompleteLoading = () => {
         if (gameConfig.skip_loading) {
-            sound.decode(assetsData.game.assets.sounds_list, this);
             this.time.delayedCall(150, () => {
-                this.scene.start(gameConfig.scene_to_start);
+                this.goToGame();
             });
         } else {
             this.tweens.add({
@@ -96,9 +104,8 @@ export default class PreloadScene extends Phaser.Scene {
             sound.play("load_button");
             buttonContainer.disableInteractive();
             this.gameUtils.scaleButton(buttonContainer, () => {
-                this.scene.start(gameConfig.scene_to_start);
+                this.goToGame();
             });
-            sound.decode(assetsData.game.assets.sounds_list, this);
         }, this);
         buttonContainer.setSize(btnActive.width, btnActive.height);
 
@@ -109,5 +116,7 @@ export default class PreloadScene extends Phaser.Scene {
             onLoadFile: this.updateLoadingBar,
             onComplete: this.onCompleteLoading
         });
+
+        this.effects = new Effects(this);
     }
 }

@@ -4,11 +4,53 @@
 			"image": "vfx.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 72,
-				"h": 49
+				"w": 251,
+				"h": 351
 			},
 			"scale": 1,
 			"frames": [
+				{
+					"filename": "water_ring",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 256,
+						"h": 256
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 249,
+						"h": 249
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 249,
+						"h": 249
+					}
+				},
+				{
+					"filename": "bubble",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 100,
+						"h": 98
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 100,
+						"h": 98
+					},
+					"frame": {
+						"x": 1,
+						"y": 252,
+						"w": 100,
+						"h": 98
+					}
+				},
 				{
 					"filename": "star",
 					"rotated": false,
@@ -24,8 +66,8 @@
 						"h": 47
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 103,
+						"y": 252,
 						"w": 48,
 						"h": 47
 					}
@@ -45,8 +87,8 @@
 						"h": 33
 					},
 					"frame": {
-						"x": 51,
-						"y": 1,
+						"x": 153,
+						"y": 252,
 						"w": 20,
 						"h": 33
 					}
@@ -57,6 +99,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:03ddb9881280c2154798220e0378dfba:3dd1bdd7ee923edbb169bbdd918cff2a:e8a10d8fa8e9d60843a1977c276b63e3$"
+		"smartupdate": "$TexturePacker:SmartUpdate:2e16a7fd65246f5a2823fdedb641dac8:5f62c295a807f229946ce391238d2cdf:e8a10d8fa8e9d60843a1977c276b63e3$"
 	}
 }

@@ -3,9 +3,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const package = require("./package.json");
 
+const isProduction = process.env.NODE_ENV === "production";
+
 module.exports = {
   entry: path.resolve(__dirname, "./src/js/main.ts"),
-  devtool: "source-map",
+  devtool: isProduction ? false : "source-map", // Disable source maps in production
   module: {
     rules: [
       {
@@ -26,8 +28,6 @@ module.exports = {
           },
         ],
       },
-      // JSON is natively supported from Webpack 4+
-      // No need for a specific loader
     ],
   },
   optimization: {
@@ -47,8 +47,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "[name].[chunkhash].js",
-    chunkFilename: "[name].[chunkhash].js",
+    filename: "[name].[contenthash].js",
+    chunkFilename: "[name].[contenthash].js",
     clean: true,
   },
   devServer: {
@@ -72,4 +72,5 @@ module.exports = {
       hot: true,
     }),
   ],
+  mode: isProduction ? "production" : "development",
 };
