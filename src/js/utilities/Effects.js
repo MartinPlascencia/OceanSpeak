@@ -112,8 +112,9 @@ export default class Effects{
         return spriteParticles;
     }
          
-    showParticles(atlasName, key, obj, particlesNumber = 10, offsetPosition = {x:0, y:0}, timeParticle = 1500){      
-        var positionToEmit = this.getPositionToEmit(obj, offsetPosition)
+    showParticles(atlasName, key, obj, particlesNumber = 10, offsetPosition = {x:0, y:0}, timeParticle = 1500){ 
+
+        var positionToEmit = obj != null ? this.getPositionToEmit(obj, offsetPosition) : offsetPosition;
         let spriteParticles = this.particlesGroup.find(particle => particle.tag == key);
         if (!spriteParticles) {
             spriteParticles = this.createParticles(key, atlasName);
@@ -173,7 +174,7 @@ export default class Effects{
 		this.spriteParticlesGroup.killAndHide(sprite);
 	}
 
-	showTextParticles(text, obj, offsetPosition = {x:0, y:0}, fontSize = 55, tint = 0xffffff, font, dontMove){
+	showTextParticles(text, obj, offsetPosition = {x:0, y:0}, fontSize = 55, tint = 0xffffff, font, dontMove, letterSpacing = 0){
         let particleText = this.textParticles.find(particle => particle.alpha == 0);
         if (!particleText) {
             particleText = this.createTextParticle(font)
@@ -183,6 +184,7 @@ export default class Effects{
         particleText.alpha = 1;
         particleText.text = text;
         particleText.tint = tint;
+        particleText.setLetterSpacing(letterSpacing);
         this.tweens.add({targets:particleText, alpha:0, duration:500, delay:500})
         if (!dontMove) {
 			this.tweens.add({targets:particleText, y:particleText.y - 100, duration:1000})
@@ -192,18 +194,6 @@ export default class Effects{
 	shakeCamera(duration = 200, intensity = 0.005){
 		this.scene.cameras.main.shake(duration, intensity);
 	}
-
-    damageTargetEffect(target){
-        let offsetY = -target.getBounds().height * 0.1;
-        if(target.damagePoints) {
-            this.showTextParticles("-" + target.damagePoints.toFixed(1), target, {x:0, y:offsetY}, 40, 0xffffff, "unispace_regular");
-        } else {
-            this.showTextParticles("MISS", target, {x:0, y:offsetY}, 40, 0xffffff, "unispace_regular");
-        }
-        //this.showParticles("vfx_atlas","star",target,10,{x:0,y:offsetY});
-        //this.showFade(200);
-        this.shakeCamera();
-    }
 
     changeTimeScale(timeScale){
         this.scene.time.timeScale = timeScale;

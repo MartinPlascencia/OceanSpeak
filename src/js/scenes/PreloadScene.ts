@@ -32,6 +32,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     private onCompleteLoading = () => {
         if (gameConfig.skip_loading) {
+            sound.decode(assetsData.game.assets.sounds_list, this);
             this.time.delayedCall(150, () => {
                 this.scene.start(gameConfig.scene_to_start);
             });

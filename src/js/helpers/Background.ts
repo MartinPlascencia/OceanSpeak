@@ -1,12 +1,32 @@
 import Screen from '../utilities/Screen';
 export default class Background extends Phaser.GameObjects.Container {
 
+    private _numberOfPlants = 5;
     constructor(scene: Phaser.Scene, screen: Screen) {
         super(scene, 0, 0);
         this.createSky(scene, screen);
+        this.createBackAssets(scene, screen);
+        this.createPlants(scene, screen);
         this.createGround(scene, screen);
 
         scene.add.existing(this);
+    }
+
+    private createBackAssets(scene: Phaser.Scene, screen: Screen) {
+        const backMountain = scene.add.image(screen.width, screen.height - 200, 'game_atlas', 'back_mountain').setOrigin(1, 1);
+        this.add(backMountain);
+
+    }
+
+    private createPlants(scene: Phaser.Scene, screen: Screen) {
+        let pivotX = 100;
+        const pivotY = screen.height - 225;
+
+        while (pivotX < screen.width) {
+            const plant = scene.add.image(pivotX, pivotY, 'game_atlas', 'plant_0' + Phaser.Math.Between(0,this._numberOfPlants)).setOrigin(0.5, 1);
+            this.add(plant);
+            pivotX += Phaser.Math.Between(100, 300);
+        }
     }
 
     private createSky(scene: Phaser.Scene, screen: Screen) {

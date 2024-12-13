@@ -127,6 +127,16 @@ export default class GameUtils {
         }
     }
 
+    popObject(obj) {
+        this.game.tweens.add({
+            targets: obj,
+            scaleX: {from:0, to:obj.scaleX},
+            scaleY: {from:0, to:obj.scaleY},
+            duration: 300,
+            ease: 'Back.easeOut',
+        })
+    }
+
     getImageWidth(id, atlas) {
         if (atlas) {
             return this.game.textures.getFrame(atlas, id).width;

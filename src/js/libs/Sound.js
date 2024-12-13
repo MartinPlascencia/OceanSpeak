@@ -51,7 +51,7 @@ class Sound{
 	play(soundId, params){
 
 		params = params || {}
-		params.volume = params.loop?this.musicVolume:this.soundVolume
+		params.volume = !params.volume ? params.loop?this.musicVolume:this.soundVolume : params.volume
 
 		if(typeof this.decodedSounds[soundId] !== "undefined") {
 			

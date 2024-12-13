@@ -23,7 +23,12 @@
     "game": {
         "assets": {
             "plugins": [],
-            "images": [],
+            "images": [
+                {
+                    "name":"water_tile",
+                    "file":"assets/images/game/water.png"
+                }
+            ],
             "atlases": [
                 {
                     "name": "game_atlas",
@@ -37,7 +42,7 @@
                 }
             ],
             "sounds_list": ["bucket", "click2", "Game_Start", "lose", "pop", "pop_magic", "drag", "winwin", "beep", "quick-whoosh",
-                "cashSound", "rainbow"],
+                "cashSound", "rainbow", "red", "blue", "green", "orange", "purple", "brown"],
             "sound_format": ".mp3",
             "sounds_location": "assets/sounds/",
             "fonts": [
@@ -45,6 +50,11 @@
                     "name": "grobold",
                     "image": "assets/images/game/font/grobold.png",
                     "font": "assets/images/game/font/grobold.fnt"
+                },
+                {
+                    "name": "grobold_color",
+                    "image": "assets/images/game/font/grobold_color.png",
+                    "font": "assets/images/game/font/grobold_color.fnt"
                 }
             ],
             "spritesheets": [],

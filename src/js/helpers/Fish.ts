@@ -1,114 +1,97 @@
 export default class Fish extends Phaser.GameObjects.Image {
 
-    
-    private direction: number;
-    private speed: number;
-    private turnSpeed: number;
-    private isMoving: boolean;
-    private padding: number;
-    private rightLimit: number;
-    private bottomLimit: number;
-    constructor(scene: Phaser.Scene, position: { x: number, y: number }, atlas: string, color: string, bottomLimit: number, rightLimit: number) {
+    private _direction: number;
+    private _speed: number;
+    private _turnSpeed: number;
+    private _isMoving: boolean = false;
+    private _padding: number;
+    private _rightLimit: number;
+    private _bottomLimit: number;
+    private _color : string;
+
+    constructor(scene: Phaser.Scene, position: { x: number, y: number }, atlas: string, color: string, bottomLimit: number, rightLimit: number,
+        scale: number = 1) {
+
         super(scene, position.x, position.y, atlas, color + '_fish');
-        this.scaleX*= -1;
+        this.setScale(scale);
+        this.scaleX *= -1;
+        this._color = color;
         scene.add.existing(this);
 
-        this.direction = Math.random() * Math.PI * 2;
-        this.speed = 2 + Math.random() * 5;
-        this.turnSpeed = Math.random() - 0.8;
+        this._direction = Math.random() * Math.PI * 2;
+        this._speed = 2 + Math.random() * 5;
+        this._turnSpeed = Math.random() - 0.8;
 
-        this.padding = this.displayWidth;
-        this.rightLimit = rightLimit + this.padding * 2;
-        this.bottomLimit = bottomLimit + this.padding * 2;
+        this._padding = this.displayWidth;
+        this._rightLimit = rightLimit + this._padding * 1.5;
+        this._bottomLimit = bottomLimit + this._padding * 1.5;
 
-        this.isMoving = true;
+    }
+
+    setSpeed(speed: number) {
+        this._speed = speed + (Math.random() - 0.5) * 3;
+    }
+
+    getColor() {
+        return this._color;
     }
 
     stop() {
-        this.isMoving = false;
+        this._isMoving = false;
     }
 
     startMoving() {
-        this.isMoving = true;
+        this._isMoving = true;
     }
 
-    /* move() {
-
-        if (!this.isMoving){
-            return;
+    activateInput(active: boolean) {
+        if (active) {
+            this.setInteractive();
+        } else {
+            this.disableInteractive();
         }
-        this.direction += this.turnSpeed * 0.01;
-        this.x += Math.sin(this.direction) * this.speed;
-        this.y += Math.cos(this.direction) * this.speed;
-        this.rotation = -this.direction - Math.PI / 2;
-
-        if (this.x < -this.padding)
-        {
-            this.x += this.rightLimit + this.padding;
-        }
-        if (this.x > this.rightLimit + this.padding)
-        {
-            this.x -= this.rightLimit + this.padding;
-        }
-        if (this.y < -this.padding)
-        {
-            this.y += this.bottomLimit + this.padding;
-        }
-        if (this.y > this.bottomLimit + this.padding)
-        {
-            this.y -= this.bottomLimit + this.padding;
-        }
-    } */
+    }
 
     move() {
-        if (!this.isMoving) {
+        if (!this._isMoving) {
             return;
         }
-    
+
         // Add slight random changes to direction over time
         const randomTurn = (Math.random() - 0.5) * 0.1; // Random value between -0.05 and 0.05
-        this.direction += this.turnSpeed * 0.01 + randomTurn;
-    
+        this._direction += this._turnSpeed * 0.01 + randomTurn;
+
         // Adjust speed slightly for organic movement
         const randomSpeedVariation = (Math.random() - 0.5) * 0.1; // Random value between -0.05 and 0.05
-        this.speed += randomSpeedVariation;
-    
+        this._speed += randomSpeedVariation;
+
         // Keep speed within reasonable bounds
-        this.speed = Phaser.Math.Clamp(this.speed, 3, 10); // Adjust min/max speed as needed
-    
+        this._speed = Phaser.Math.Clamp(this._speed, 3, 10); // Adjust min/max speed as needed
+
         // Update position
-        this.x += Math.sin(this.direction) * this.speed;
-        this.y += Math.cos(this.direction) * this.speed;
-    
+        this.x += Math.sin(this._direction) * this._speed;
+        this.y += Math.cos(this._direction) * this._speed;
+
         // Update rotation to match movement direction
-        this.rotation = -this.direction - Math.PI / 2;
-    
+        this.rotation = -this._direction - Math.PI / 2;
+
         // Screen wrap logic
-        if (this.x < -this.padding) {
-            this.x += this.rightLimit;
+        if (this.x < -this._padding) {
+            this.x += this._rightLimit;
         }
-        if (this.x > this.rightLimit) {
-            this.x -= this.rightLimit;
+        if (this.x > this._rightLimit) {
+            this.x -= this._rightLimit;
         }
-        if (this.y < -this.padding) {
-            this.y += this.bottomLimit;
+        if (this.y < -this._padding) {
+            this.y += this._bottomLimit;
         }
-        if (this.y > this.bottomLimit) {
-            this.y -= this.bottomLimit;
+        if (this.y > this._bottomLimit) {
+            this.y -= this._bottomLimit;
         }
-    
+
         // Optionally, make fish occasionally pause or dart forward
         if (Math.random() < 0.01) {
-            this.speed = Math.random() < 0.5 ? 0 : Phaser.Math.Between(2, 4); // Dart or stop randomly
+            this._speed = Math.random() < 0.5 ? 0 : Phaser.Math.Between(2, 4); // Dart or stop randomly
         }
     }
-
-
-
 }
-
-
-
-
-
-
