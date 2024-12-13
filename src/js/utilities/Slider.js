@@ -1,3 +1,4 @@
+const sound = require('../libs/Sound.js');
 export default class Slider extends Phaser.GameObjects.Container {
     constructor(scene, container, position, width, height, minValue, maxValue, callback){ 
         super(scene, position.x, position.y);
@@ -52,6 +53,7 @@ export default class Slider extends Phaser.GameObjects.Container {
             this.isDragging = true;
             dragButton.setScale(1.2);
             positionDragButton(pointer);
+            sound.play('drag');
 
         });
 
@@ -64,6 +66,7 @@ export default class Slider extends Phaser.GameObjects.Container {
         const stopDrag = () =>{
             this.isDragging = false;
             dragButton.setScale(1);
+            sound.play('pop');
         }
 
         sliderLine.on('pointerup', stopDrag);

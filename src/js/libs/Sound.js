@@ -62,17 +62,15 @@ class Sound{
 		}
 	}
 
-	playSong(soundId){
+	playSong(soundId, params = {}){
 
-		if(!this.musicActive) {
-			return;
-		}
 		if(this.songName) {
 			stop(this.songName);
 		}
+		params.loop = true;
 		if(this.decodedSounds[soundId]) {
 			this.songName = soundId;
-			this.play(this.songName,{loop:true})
+			this.play(this.songName, params);
 		}
 	}
 

@@ -1,6 +1,8 @@
 import Screen from '../utilities/Screen';
 import Slider from '../utilities/Slider';
 import GameUtils from '../libs/GameUtils';
+
+const sound = require('../libs/Sound.js');
 export default class Background extends Phaser.GameObjects.Container {
 
     private _fade!: Phaser.GameObjects.Rectangle;
@@ -65,6 +67,7 @@ export default class Background extends Phaser.GameObjects.Container {
         startButtonContainer.setSize(buttonImage.displayWidth, buttonImage.displayHeight);
         startButtonContainer.setInteractive({useHandCursor: true});
         startButtonContainer.on('pointerdown', () => {
+            sound.play('click2');
             this._gameUtils.scaleButton(startButtonContainer, () => {
                 startButtonContainer.disableInteractive();
                 this.hideMenu();
@@ -101,6 +104,7 @@ export default class Background extends Phaser.GameObjects.Container {
     }
 
     showMenu() {
+        sound.play('quick-whoosh');
         this.alpha = 1;
         this._tweens.add({
             targets: this._fade,

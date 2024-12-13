@@ -22,13 +22,14 @@ export default class PreloadScene extends Phaser.Scene {
     private _fishContainer!: Phaser.GameObjects.Container;
     private _tiledWater!: Phaser.GameObjects.TileSprite;
     private _displacementEffect!: any;
+    private _gameStarted!: boolean;
 
     private fishColors: string[] = ['blue', 'green', 'red', 'orange','brown', 'purple'];
     private hexColors = {red: 0xff4f4f, blue: 0x00aeff, orange: 0xff7800, purple: 0xaa46ff, green: 0x00b343, brown: 0xc06105};
 
     constructor() {
         super("MainScene");
-
+        this._gameStarted = false;
     }
 
     preload() {
@@ -54,6 +55,8 @@ export default class PreloadScene extends Phaser.Scene {
 
     setGame(numberOfFishes: number, speed: number) {
         this.createFishes(numberOfFishes, speed);
+        this._gameStarted = true;
+        sound.playSong('dire_dire_docks', {volume: 0.2});
     }
 
     createEffects(){
@@ -74,7 +77,10 @@ export default class PreloadScene extends Phaser.Scene {
         })
 
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            sound.play('drag');
+            if (!this._gameStarted) {
+                return;
+            }
+            sound.play('water_attack', {volume: 0.2});
             this.effects.showParticles('vfx_atlas', 'drop', null, 5, {x: pointer.x, y: pointer.y});
         });
     }
