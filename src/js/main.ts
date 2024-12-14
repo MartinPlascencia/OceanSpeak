@@ -44,10 +44,8 @@ window.onload = () => {
     };
 
     game = new Phaser.Game(gameConfig);
-    screen = new Screen(game);
 
     const orientation = new Orientation();
-
     orientation.checkOrientation();
     window.focus();
 };

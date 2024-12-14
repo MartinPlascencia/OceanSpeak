@@ -41,7 +41,7 @@
                     "image": "assets/images/game/vfx.png"
                 }
             ],
-            "sounds_list": ["bucket", "click2", "Game_Start", "lose", "pop", "pop_magic", "drag", "winwin", "beep", "quick-whoosh",
+            "sounds_list": ["bucket", "click2", "Game_Start", "pop", "pop_magic", "drag", "winwin", "beep", "quick-whoosh",
                 "cashSound", "rainbow", "red", "blue", "green", "orange", "purple", "brown","dire_dire_docks","water_attack"],
             "sound_format": ".mp3",
             "sounds_location": "assets/sounds/",

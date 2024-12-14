@@ -45,7 +45,7 @@ export default class Background extends Phaser.GameObjects.Container {
         this.add(background);
     }
 
-    private createGround(scene: Phaser.Scene, screen: Screen) {
+    private createGround(scene: Phaser.Scene, screen: Screen) : void {
 
         const groundContainer = scene.add.container(0, screen.height);
         this.add(groundContainer);
@@ -63,7 +63,4 @@ export default class Background extends Phaser.GameObjects.Container {
         }
         
     }
-
-
-
 }
