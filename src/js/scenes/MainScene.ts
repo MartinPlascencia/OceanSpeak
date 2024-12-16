@@ -106,7 +106,7 @@ export default class PreloadScene extends Phaser.Scene {
         this._effects = new Effects(this);
 
         this._tiledWater = new MovingTileSprite(this, 0, 0, this._screen.width, this._screen.height, 'water_tile', 0.5, 0.5).setOrigin(0, 0)
-        .setAlpha(0.1);
+        .setAlpha(0.07);
 
         this._effects.addDisplacement('water_tile', gameConfig.displacement_effect_value, 1000);
 

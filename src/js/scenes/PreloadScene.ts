@@ -71,7 +71,7 @@ export default class PreloadScene extends Phaser.Scene {
     }
 
     private createLogo(): void {
-        
+
         const companyLogo = this.add.image(this._screen.centerX, this._screen.centerY + 85, 'loadingAtlas', 'logoWarbler');
         const logo = this.add.image(this._screen.centerX, this._screen.centerY - 150, 'loadingAtlas', 'wIcon');
 
@@ -97,7 +97,7 @@ export default class PreloadScene extends Phaser.Scene {
     }
 
     createStartButton(): void { 
-        const buttonContainer = this.add.container(this._screen.centerX, this._screen.height * 0.75);
+        const buttonContainer = this.add.container(this._screen.centerX, this._logo.y + this._logo.displayHeight * 1.4);
         buttonContainer.alpha = 0;
         this._startButton = buttonContainer;
 

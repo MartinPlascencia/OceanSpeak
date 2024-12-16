@@ -9,6 +9,11 @@ export default class Fish extends ColorInteractiveAsset {
     private _padding: number;
     private _rightLimit: number;
     private _bottomLimit: number;
+    private _lastPositionX : number = 0;
+
+    private _timeToFlip : number = 500;
+    private _flipCooldown : number = 0;
+    private _flipDecreasement : number = 16;
 
     constructor(scene: Phaser.Scene, position: { x: number, y: number }, atlas: string, color: string, bottomLimit: number, rightLimit: number,
         scale: number = 1) {
@@ -45,31 +50,46 @@ export default class Fish extends ColorInteractiveAsset {
             return;
         }
 
-        // Add slight random changes to direction over time
-        const randomTurn = (Math.random() - 0.5) * 0.1; // Random value between -0.05 and 0.05
+        this.updateDirection();
+        this.updateSpeed();
+        this.handleFlipping();
+        this.updatePosition();
+        this.applyScreenWrapping();
+
+    }
+
+    private updateDirection(): void {
+        const randomTurn = (Math.random() - 0.5) * 0.1; 
         this._direction += this._turnSpeed * 0.01 + randomTurn;
-
-        const minAngle = Phaser.Math.DegToRad(-90); // -90° in radians
-        const maxAngle = Phaser.Math.DegToRad(90);  // 90° in radians
-        this._direction = Phaser.Math.Clamp(this._direction, minAngle, maxAngle);
-
-        // Adjust speed slightly for organic movement
-        const randomSpeedVariation = (Math.random() - 0.5) * 0.1; // Random value between -0.05 and 0.05
+    }
+    
+    private updateSpeed(): void {
+        const randomSpeedVariation = (Math.random() - 0.5) * 0.1; 
         this._speed += randomSpeedVariation;
-
-        this.flipY = this._direction > 0; // Flip when moving right
-
-        // Keep speed within reasonable bounds
-        this._speed = Phaser.Math.Clamp(this._speed, 3, this._maxSpeed); // Adjust min/max speed as needed
-
-        // Update position
+        this._speed = Phaser.Math.Clamp(this._speed, 3, this._maxSpeed);
+    }
+    
+    private handleFlipping(): void {
+        if (this._flipCooldown <= 0) {
+            this.flipY = this._lastPositionX < this.x; 
+            this._flipCooldown = this._timeToFlip; 
+        }
+    
+        if (this._flipCooldown > 0) {
+            this._flipCooldown -= this._flipDecreasement;
+        }
+    
+        this._lastPositionX = this.x;
+    }
+    
+    private updatePosition(): void {
         this.x += Math.sin(this._direction) * this._speed;
         this.y += Math.cos(this._direction) * this._speed;
-
-        // Update rotation to match movement direction
+    
         this.rotation = -this._direction - Math.PI / 2;
-
-        // Screen wrap logic
+    }
+    
+    private applyScreenWrapping(): void {
         if (this.x < -this._padding) {
             this.x += this._rightLimit;
         }
@@ -82,10 +102,6 @@ export default class Fish extends ColorInteractiveAsset {
         if (this.y > this._bottomLimit) {
             this.y -= this._bottomLimit;
         }
-
-        // Optionally, make fish occasionally pause or dart forward
-        if (Math.random() < 0.01) {
-            this._speed = Math.random() < 0.5 ? 0 : Phaser.Math.Between(2, 4); // Dart or stop randomly
-        }
     }
+    
 }
