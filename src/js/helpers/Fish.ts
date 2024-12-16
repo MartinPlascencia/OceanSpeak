@@ -1,25 +1,24 @@
-export default class Fish extends Phaser.GameObjects.Image {
+import ColorInteractiveAsset from "./ColorInteractiveAsset";
+export default class Fish extends ColorInteractiveAsset {
 
     private _direction: number;
-    private _speed: number;
+    private _speed!: number;
+    private _maxSpeed!: number; 
     private _turnSpeed: number;
     private _isMoving: boolean = false;
     private _padding: number;
     private _rightLimit: number;
     private _bottomLimit: number;
-    private _color : string;
 
     constructor(scene: Phaser.Scene, position: { x: number, y: number }, atlas: string, color: string, bottomLimit: number, rightLimit: number,
         scale: number = 1) {
 
-        super(scene, position.x, position.y, atlas, color + '_fish');
+        super(scene, position.x, position.y, atlas, color + '_fish', color, scale);
         this.setScale(scale);
-        this.scaleX *= -1;
-        this._color = color;
+        this.flipX = true;
         scene.add.existing(this);
 
         this._direction = Math.random() * Math.PI * 2;
-        this._speed = 2 + Math.random() * 5;
         this._turnSpeed = Math.random() - 0.8;
 
         this._padding = this.displayWidth;
@@ -30,10 +29,7 @@ export default class Fish extends Phaser.GameObjects.Image {
 
     setSpeed(speed: number) {
         this._speed = speed + (Math.random() - 0.5) * 3;
-    }
-
-    getColor() {
-        return this._color;
+        this._maxSpeed = speed;
     }
 
     stop() {
@@ -42,14 +38,6 @@ export default class Fish extends Phaser.GameObjects.Image {
 
     startMoving() {
         this._isMoving = true;
-    }
-
-    activateInput(active: boolean) {
-        if (active) {
-            this.setInteractive();
-        } else {
-            this.disableInteractive();
-        }
     }
 
     move() {
@@ -61,12 +49,18 @@ export default class Fish extends Phaser.GameObjects.Image {
         const randomTurn = (Math.random() - 0.5) * 0.1; // Random value between -0.05 and 0.05
         this._direction += this._turnSpeed * 0.01 + randomTurn;
 
+        const minAngle = Phaser.Math.DegToRad(-90); // -90° in radians
+        const maxAngle = Phaser.Math.DegToRad(90);  // 90° in radians
+        this._direction = Phaser.Math.Clamp(this._direction, minAngle, maxAngle);
+
         // Adjust speed slightly for organic movement
         const randomSpeedVariation = (Math.random() - 0.5) * 0.1; // Random value between -0.05 and 0.05
         this._speed += randomSpeedVariation;
 
+        this.flipY = this._direction > 0; // Flip when moving right
+
         // Keep speed within reasonable bounds
-        this._speed = Phaser.Math.Clamp(this._speed, 3, 10); // Adjust min/max speed as needed
+        this._speed = Phaser.Math.Clamp(this._speed, 3, this._maxSpeed); // Adjust min/max speed as needed
 
         // Update position
         this.x += Math.sin(this._direction) * this._speed;

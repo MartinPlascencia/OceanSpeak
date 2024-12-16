@@ -1,13 +1,9 @@
 import Phaser from 'phaser';
 import PreloaderIntro from './scenes/PreloadScene';
 import MainScene from './scenes/MainScene';
-import Screen from './utilities/Screen';
 import Orientation from './libs/Orientation';
 
-import SliderPlugin from 'phaser3-rex-plugins/plugins/slider-plugin.js';
-
 let game: Phaser.Game;
-let screen = null;
 const gameWidth = 1920;
 const gameHeight = Math.round(gameWidth * (window.innerHeight / window.innerWidth));
 
@@ -29,15 +25,6 @@ window.onload = () => {
         },
         dom: {
             createContainer: true
-        },
-        plugins: {
-            global: [{
-                key: 'rexSlider',
-                plugin: SliderPlugin,
-                start: true
-            },
-            // ...
-            ]
         },
         powerPreference: 'high-performance',
         disableContextMenu: false

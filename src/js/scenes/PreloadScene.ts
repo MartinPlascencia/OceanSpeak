@@ -36,6 +36,10 @@ export default class PreloadScene extends Phaser.Scene {
     private goToGame(): void {
         sound.decode(assetsData.game.assets.sounds_list, this);
         this._effects.fadeOut(400, () => {
+            if (!gameConfig.scene_to_start || gameConfig.scene_to_start === "") {
+                console.error("Scene to start is undefined.");
+                return;
+            }
             this.scene.start(gameConfig.scene_to_start);
         });
     }
@@ -66,19 +70,9 @@ export default class PreloadScene extends Phaser.Scene {
         this._screen = new Screen(this);
     }
 
-    create(): void {
-        sound.decode(assetsData.preload.assets.sounds_list, this);
-
-        const background = this.add.rectangle(
-            this._screen.centerX,
-            this._screen.centerY,
-            this._screen.width,
-            this._screen.height,
-            0x33067a
-        );
-
+    private createLogo(): void {
+        
         const companyLogo = this.add.image(this._screen.centerX, this._screen.centerY + 85, 'loadingAtlas', 'logoWarbler');
-
         const logo = this.add.image(this._screen.centerX, this._screen.centerY - 150, 'loadingAtlas', 'wIcon');
 
         const topLogo = this.add.image(logo.x, logo.y, 'loadingAtlas', 'wIcon2');
@@ -100,8 +94,10 @@ export default class PreloadScene extends Phaser.Scene {
 
         const maskRect = mask.createGeometryMask();
         topLogo.setMask(maskRect);
+    }
 
-        const buttonContainer = this.add.container(this._screen.centerX, companyLogo.y + 165);
+    createStartButton(): void { 
+        const buttonContainer = this.add.container(this._screen.centerX, this._screen.height * 0.75);
         buttonContainer.alpha = 0;
         this._startButton = buttonContainer;
 
@@ -119,6 +115,18 @@ export default class PreloadScene extends Phaser.Scene {
 
         const buttonText = this.add.bitmapText(0, 3, 'futura_bold', 'Start Game', 35, 1).setOrigin(0.5).setTint(0x7f1111);
         buttonContainer.add(buttonText);
+    }
+
+    create(): void {
+        
+        sound.decode(assetsData.preload.assets.sounds_list, this);
+
+        const background = this.add.rectangle(this._screen.centerX, this._screen.centerY,
+            this._screen.width, this._screen.height, 0x33067a
+        );
+
+        this.createLogo();
+        this.createStartButton();
 
         this._sceneloader.preload(assetsData.game, {
             onLoadFile: this.updateLoadingBar,
@@ -126,5 +134,5 @@ export default class PreloadScene extends Phaser.Scene {
         });
 
         this._effects = new Effects(this);
-    }
+    }    
 }

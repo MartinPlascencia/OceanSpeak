@@ -5,6 +5,7 @@ export default class Effects {
     private _textParticles: Phaser.GameObjects.BitmapText[] = [];
     private _whiteFade!: Phaser.GameObjects.Rectangle;
     private _spriteParticlesGroup!: Phaser.GameObjects.Group;
+    private _displacementEffect!: any;
 
     constructor(scene: Phaser.Scene, noParticles : boolean = false) {        
         this._scene = scene;
@@ -143,15 +144,6 @@ export default class Effects {
         };
     }
 
-    shakeCamera(duration : number = 200, intensity : number = 0.005): void {
-        this._scene.cameras.main.shake(duration, intensity);
-    }
-
-    changeTimeScale(timeScale: number): void {
-        this._scene.time.timeScale = timeScale;
-        this._scene.tweens.timeScale = timeScale;
-    }
-
     addSpriteParticles(){
         if (!this._spriteParticlesGroup) {
             this._spriteParticlesGroup = this._scene.add.group()
@@ -202,4 +194,41 @@ export default class Effects {
     private killSprite(sprite : Phaser.GameObjects.Sprite | Phaser.GameObjects.Image){ 
 		this._spriteParticlesGroup.killAndHide(sprite);
 	}
+
+    scaleUpAndDown(sprite : Phaser.GameObjects.Sprite | Phaser.GameObjects.Image | Phaser.GameObjects.Container, 
+        scale : number = 1.5, duration : number = 200, repeat : number = 2, callback? : () => void){
+        this._tweens.add({
+            targets: sprite,
+            scaleX: sprite.scaleX * scale,
+            scaleY: sprite.scaleY * scale,
+            duration: duration,
+            yoyo: true,
+            repeat: repeat,
+            onComplete: () => {
+                if (callback) {
+                    callback();
+                }
+            }
+        });
+    }
+
+    addDisplacement(key : string, value : number, effectDuration : number){
+        this._displacementEffect = this._scene.cameras.main.postFX.addDisplacement('water_tile');
+
+        this._tweens.add({
+            targets: this._displacementEffect,
+            x: {from: value, to: -value},
+            y: {from: value, to: -value},
+            duration: effectDuration,
+            yoyo: true,
+            repeat: -1
+        })
+    }
+
+    stopDisplacement(){
+        if (this._displacementEffect) {
+            this._scene.cameras.main.postFX.remove(this._displacementEffect);
+            this._displacementEffect = null;
+        }
+    }
 }

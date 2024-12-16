@@ -1,7 +1,11 @@
 import Screen from '../utilities/Screen';
+import ColorInteractiveAsset from './ColorInteractiveAsset';
 export default class Background extends Phaser.GameObjects.Container {
 
-    private _numberOfPlants = 5;
+    private _plantsColors : string[]= ['purple', 'green', 'orange'];
+    private _numberOfPlants = 2;
+    private _plantsSize = 1;
+    private _plants : ColorInteractiveAsset[] = [];
     constructor(scene: Phaser.Scene, screen: Screen) {
         super(scene, 0, 0);
         this.createSky(scene, screen);
@@ -20,13 +24,21 @@ export default class Background extends Phaser.GameObjects.Container {
 
     private createPlants(scene: Phaser.Scene, screen: Screen) {
         let pivotX = 100;
-        const pivotY = screen.height - 225;
+        const pivotY = screen.height - 245;
 
         while (pivotX < screen.width) {
-            const plant = scene.add.image(pivotX, pivotY, 'game_atlas', 'plant_0' + Phaser.Math.Between(0,this._numberOfPlants)).setOrigin(0.5, 1);
+            const plantColor = this._plantsColors[Phaser.Math.Between(0, this._plantsColors.length - 1)];
+            const plant = new ColorInteractiveAsset(scene, pivotX, pivotY, 'game_atlas', plantColor + '_plant_0' + Phaser.Math.Between(0,this._numberOfPlants - 1), 
+                plantColor, this._plantsSize);
+            plant.setOrigin(0.5, 1);
             this.add(plant);
+            this._plants.push(plant);
             pivotX += Phaser.Math.Between(100, 300);
         }
+    }
+
+    getPlants() : ColorInteractiveAsset[] {   
+        return this._plants;
     }
 
     private createSky(scene: Phaser.Scene, screen: Screen) {

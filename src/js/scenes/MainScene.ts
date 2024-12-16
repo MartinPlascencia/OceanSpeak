@@ -2,38 +2,36 @@ import Phaser from 'phaser';
 import GameUtils from '../libs/GameUtils';
 import Screen from '../utilities/Screen';
 import Effects from '../utilities/Effects';
-import Speech from '../utilities/Speech';
 
 import Background from '../helpers/Background';
 import Fish from '../helpers/Fish';
 import SetupMenu from '../helpers/SetupMenu';
+import SpeechAssets from '../helpers/SpeechAssets';
+import MovingTileSprite from '../helpers/MovingTileSprite';
 
 import gameConfig from '../../assets/data/game_config.json';
 
 import sound from '../libs/Sound'
+import ColorInteractiveAsset from '../helpers/ColorInteractiveAsset';
 
 export default class PreloadScene extends Phaser.Scene {
-    private _speech!: Speech;
     private _gameUtils!: GameUtils;
     private _screen!: Screen;
     private _effects!: Effects;
     private _setupMenu!: SetupMenu;
     private _fishContainer!: Phaser.GameObjects.Container;
-    private _tiledWater!: Phaser.GameObjects.TileSprite;
-    private _displacementEffect!: any;
-    private _speechButton!: Phaser.GameObjects.Image;
-    private _microphoneIcon!: Phaser.GameObjects.Image;
-    private _microphoneTween!: Phaser.Tweens.Tween;
+    private _tiledWater!: MovingTileSprite;
+
+    private _background! : Background;
 
     private _fishColors: string[] = ['blue', 'green', 'red', 'orange','brown', 'purple'];
     private _hexColors = {red: 0xff4f4f, blue: 0x00aeff, orange: 0xff7800, purple: 0xaa46ff, green: 0x00b343, brown: 0xc06105};
-    private _displacementEffectValue : number = 0.006;
     private _gameStarted!: boolean;
+    private _shouldMoveWater : boolean = false;
 
     constructor() {
         super("MainScene");
         this._gameStarted = false;
-        this._speech = new Speech(this.getSpeechText.bind(this));
     }
 
     preload() : void{
@@ -44,13 +42,12 @@ export default class PreloadScene extends Phaser.Scene {
 
     create() : void {
         
-        const background = new Background(this, this._screen);
+        this._background = new Background(this, this._screen);
 
         this._fishContainer = this.add.container(0, 0);
 
         this.createEffects();
         this.createMenu();
-        this.createSpeechAssets();
         this.animateScene();
     }
 
@@ -70,19 +67,11 @@ export default class PreloadScene extends Phaser.Scene {
                 this.fishPressed(fish as Fish);
             }
         }
-        this.showSpeechButton();
-    }
-
-    showSpeechButton() : void {
-        this._speechButton.setInteractive();
-        this._speechButton.setScale(0.8);
-        this._gameUtils.popObject(this._speechButton);
-        this.hideMicrophone();
     }
 
     private animateScene() : void {   
+        this._shouldMoveWater = true;
         this._effects.showFade(350, () => {
-            this._speech.speak('Ocean Speak');
             this._setupMenu.showMenu();
         });
     }
@@ -92,79 +81,43 @@ export default class PreloadScene extends Phaser.Scene {
     }
 
     private createSpeechAssets() : void {
-
-        const speechButton = this.add.image(0,0, 'game_atlas', 'speak_button');
-        speechButton.setPosition(speechButton.displayWidth * 0.5, this._screen.height - speechButton.displayHeight * 0.5);
-        speechButton.setScale(0.8).setAlpha(0).setInteractive({useHandCursor: true});
-        speechButton.on('pointerdown', () => {
-            speechButton.disableInteractive();
-            sound.play('click2');
-            this._gameUtils.unpopObject(speechButton, 500);
-            this.showMicrophone();
-            this._speech.speechRecognition();
-        });
-        this._speechButton = speechButton;
-
-        const microphoneIcon = this.add.image(0,0, 'game_atlas', 'microphone').setAlpha(0);
-        const microphoneOffset = microphoneIcon.displayWidth * 0.3;
-        microphoneIcon.setPosition(microphoneIcon.displayWidth * 0.5 + microphoneOffset,  
-            microphoneIcon.displayHeight * 0.5 + microphoneOffset);
-        this._microphoneIcon = microphoneIcon;
-
-        this._microphoneTween = this.add.tween({
-            targets: microphoneIcon,
-            alpha: {from:0, to: 1},
-            duration: 500,
-            repeat: -1,
-            yoyo: true,
-            paused: true
-        });
-
+        new SpeechAssets(this, this._screen, this.getSpeechText.bind(this));
     }
 
-    showMicrophone() : void{
-        this._gameUtils.popObject(this._microphoneIcon);
-        this._microphoneTween.restart();
-    }
-
-    hideMicrophone() : void {
-        this._gameUtils.unpopObject(this._microphoneIcon);
-        this._microphoneTween.pause();
+    private setInteractivePlants() : void {
+        this._background.getPlants().forEach((plant) => {
+            plant.activateInput(true);
+            plant.addInputCallback(() => {
+                this.pressColoredAsset(plant);
+            });
+        });
     }
 
     setGame(numberOfFishes: number, speed: number) : void {
         this.createFishes(numberOfFishes, speed);
+        this.setInteractivePlants();
         this._gameStarted = true;
         sound.playSong('dire_dire_docks', {volume: 0.2});
-        this.showSpeechButton();
+        this.createSpeechAssets();
     }
 
     private createEffects() : void{
 
         this._effects = new Effects(this);
 
-        this._tiledWater = this.add.tileSprite(this._screen.centerX, this._screen.centerY, this._screen.width, this._screen.height, 'water_tile').setAlpha(0.05);
+        this._tiledWater = new MovingTileSprite(this, 0, 0, this._screen.width, this._screen.height, 'water_tile', 0.5, 0.5).setOrigin(0, 0)
+        .setAlpha(0.1);
 
-        this._displacementEffect = this.cameras.main.postFX.addDisplacement('water_tile');
+        this._effects.addDisplacement('water_tile', gameConfig.displacement_effect_value, 1000);
 
-        this.tweens.add({
-            targets: this._displacementEffect,
-            x: {from: this._displacementEffectValue, to: -this._displacementEffectValue},
-            y: {from: this._displacementEffectValue, to: -this._displacementEffectValue},
-            duration: 1000,
-            yoyo: true,
-            repeat: -1
-        })
-
-        this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            if (!this._gameStarted) {
-                return;
-            }
-            sound.play('water_attack', {volume: 0.2});
-            this._effects.playWaterEffect(pointer.x, pointer.y, 3, 300);
-        });
-
+        this.input.on('pointerdown', this.handlePointerDown.bind(this));
         this._effects.createGroundParticles('bubbles', 'vfx_atlas', 'bubble', -1, true, 450 );
+    }
+
+    private handlePointerDown(pointer: Phaser.Input.Pointer): void {
+        if (!this._gameStarted) return;
+        sound.play('water_attack', {volume: 0.2});
+        this._effects.playWaterEffect(pointer.x, pointer.y, 3, 300);
     }
 
     private createFishes(numberOfFishes: number = 10, speed: number = 5) : void {
@@ -175,44 +128,48 @@ export default class PreloadScene extends Phaser.Scene {
             this._fishContainer.add(fish);
             fish.setSpeed(speed);
             fish.activateInput(true);
-            fish.on('pointerdown', this.fishPressed.bind(this, fish));
+            fish.addInputCallback(this.fishPressed.bind(this));
             this._gameUtils.popObject(fish);
             fish.startMoving();
         }
     }
 
     private fishPressed(fish: Fish) : void{
-        fish.activateInput(false);
         fish.stop();
+        this.pressColoredAsset(fish, () => {
+            fish.startMoving();
+        });
+    }
+
+    private pressColoredAsset(asset: ColorInteractiveAsset, callback? : () => void) : void {
+        asset.activateInput(false);
         sound.play('pop_magic',{volume:0.3});
-        sound.play(fish.getColor());
-        this._effects.showParticles('vfx_atlas', 'star', fish, 25);
-        this._effects.showTextParticles(fish.getColor().toUpperCase(), fish, undefined, 60, this._hexColors[fish.getColor() as keyof typeof this._hexColors], 
+        sound.play(asset.getColor());
+        this._effects.showParticles('vfx_atlas', 'star', asset, 25);
+        this._effects.showTextParticles(asset.getColor().toUpperCase(), asset, undefined, 60, this._hexColors[asset.getColor() as keyof typeof this._hexColors], 
             'grobold_color', false, 17);
-        this.tweens.add({
-            targets: fish,
-            scaleX: fish.scaleX * 1.5,
-            scaleY: fish.scaleY * 1.5,
-            duration: 200,
-            yoyo: true,
-            repeat: 2,
-            onComplete: () => {
-                fish.activateInput(true);
-                fish.startMoving();
+        this._effects.scaleUpAndDown(asset, 1.5, 200, 2, () => { 
+            asset.activateInput(true);
+            if (callback) {
+                callback();
             }
         });
     }
 
-    private moveWater() : void{
-
-        this._tiledWater.tilePositionX += 0.5;
-        this._tiledWater.tilePositionY += 0.5;
+    update() : void {
+        this._fishContainer.list.forEach((fish) => {
+            if (fish instanceof Fish) {
+                fish.move();
+            }
+        });
+        if (this._shouldMoveWater) {
+            this._tiledWater.move();
+        }
     }
 
-    update() : void {
-        (this._fishContainer.list as Fish[]).forEach((fish) => {
-            fish.move();
-        });
-        this.moveWater();
+    shutdown() : void { 
+        if (this._effects) {
+            this._effects.stopDisplacement();
+        }
     }
 }
