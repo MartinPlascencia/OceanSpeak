@@ -35,7 +35,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     private goToGame(): void {
         sound.decode(assetsData.game.assets.sounds_list, this);
-        this._effects.fadeOut(300, () => {
+        this._effects.fadeOut(400, () => {
             this.scene.start(gameConfig.scene_to_start);
         });
     }
@@ -112,9 +112,7 @@ export default class PreloadScene extends Phaser.Scene {
         buttonContainer.on('pointerdown', () => {
             sound.play("load_button");
             buttonContainer.disableInteractive();
-            this._gameUtils.scaleButton(buttonContainer, () => {
-                this.goToGame();
-            });
+            this._gameUtils.scaleButton(buttonContainer, this.goToGame.bind(this), true);
         }, this);
 
         buttonContainer.setSize(btnActive.width, btnActive.height);

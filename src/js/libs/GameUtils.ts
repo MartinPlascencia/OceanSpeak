@@ -14,25 +14,49 @@ export default class GameUtils {
     }
 
     scaleButton(obj: Phaser.GameObjects.Sprite | Phaser.GameObjects.Image |
-        Phaser.GameObjects.Container, callback?: Function): void {
+        Phaser.GameObjects.Container, callback?: Function, style? : boolean): void {
         const scaleX = obj.scaleX;
         const scaleY = obj.scaleY;
 
-        this.game.tweens.add({
-            targets: obj,
-            scaleX: scaleX * 0.5,
-            scaleY: scaleY * 1.8,
-            duration: 150,
-            onComplete: () => {
-                this.game.tweens.add({
-                    targets: obj,
-                    scaleX: scaleX * 2,
-                    scaleY: 0,
-                    duration: 100,
-                    onComplete: callback as Phaser.Types.Tweens.TweenOnCompleteCallback || (() => {}),
-                });
-            },
-        });
+        if (style == true) {
+            this.game.tweens.add({
+                targets: obj,
+                scaleX: scaleX * 0.5,
+                scaleY: scaleY * 1.8,
+                duration: 150,
+                onComplete: () => {
+                    this.game.tweens.add({
+                        targets: obj,
+                        scaleX: scaleX * 2,
+                        scaleY: 0,
+                        duration: 100,
+                        onComplete: callback as Phaser.Types.Tweens.TweenOnCompleteCallback || (() => {}),
+                    });
+                },
+            });
+        } else {
+            const scale1 = obj.scaleX * 0.7;
+            const scale2 = obj.scaleX * 0.9;
+
+            this.game.tweens.add({
+                targets: obj,
+                scale: scale1,
+                duration: 150,
+                onComplete: () => {
+                    this.game.tweens.add({
+                        targets: obj,
+                        scale: scale2,
+                        duration: 50,
+                        repeat: 0,
+                        yoyo: true,
+                        onComplete: callback as Phaser.Types.Tweens.TweenOnCompleteCallback || (() => {}),
+                    });
+                },
+                repeat: 0,
+                yoyo: true,
+            });
+        }
+        
     }
 
     popObject(obj: Phaser.GameObjects.Sprite | Phaser.GameObjects.Image
