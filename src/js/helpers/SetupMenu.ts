@@ -67,11 +67,12 @@ export default class Background extends Phaser.GameObjects.Container {
         startButtonContainer.add(buttonText);
 
         startButtonContainer.setSize(buttonImage.displayWidth, buttonImage.displayHeight);
-        startButtonContainer.setInteractive({ useHandCursor: true });
+        startButtonContainer.setInteractive();
         startButtonContainer.on('pointerdown', () => {
             sound.play('click2');
+            startButtonContainer.disableInteractive();
             this._gameUtils.scaleButton(startButtonContainer, () => {
-                startButtonContainer.disableInteractive();
+                
                 this.hideMenu();
                 this._readyCallback(this._numberOfFishes, this._fishesSpeed);
             });
