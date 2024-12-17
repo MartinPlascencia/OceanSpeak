@@ -28,6 +28,7 @@ export default class Orientation {
             if (this.getResolution() !== this.firstResolution) {
                 window.location.reload();
             }
+            gameElement.offsetHeight;
         }
     }
 
