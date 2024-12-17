@@ -23,16 +23,19 @@ window.onload = () => {
             target: 60,
             forceSetTimeOut: true
         },
-        dom: {
+        /* dom: {
             createContainer: true
-        },
+        }, */
         powerPreference: 'high-performance',
-        disableContextMenu: false
+        disableContextMenu: true
     };
-
-    game = new Phaser.Game(gameConfig);
 
     const orientation = new Orientation();
     orientation.checkOrientation();
+
+    if (orientation.hasCorrectResolution()) {
+        game = new Phaser.Game(gameConfig);
+    }
+    
     window.focus();
 };

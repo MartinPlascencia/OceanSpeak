@@ -58,6 +58,10 @@ export default class Orientation {
         }
     }
 
+    hasCorrectResolution(): boolean {
+        return gameConfig.orientation === this.firstResolution;
+    }
+
     private getResolution(): string {
         return window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
     }
