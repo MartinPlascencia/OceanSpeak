@@ -8,7 +8,6 @@ export default class Orientation {
         this.onResizeCallback();
     }
 
-    // Handle DOM-based visibility toggling
     blockGame(active: boolean): void {
         const turnElement = document.getElementById("turn");
         const gameElement = document.getElementById("game");
