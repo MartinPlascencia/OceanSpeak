@@ -32,7 +32,6 @@ export default class Orientation {
         }
     }
 
-    // Entry point for checking orientation logic
     checkOrientation(): void {
         this.checkBlockResolution();
     }
